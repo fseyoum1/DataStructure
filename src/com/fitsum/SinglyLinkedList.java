@@ -6,38 +6,50 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T>{
     private int size;
 
     public void addAtIndex(int index, T data) {
-
         if (data == null) {
             throw new IllegalArgumentException("Data can't be null");
         }
         if ((index < 0) || (index > size)) {
             throw new IndexOutOfBoundsException("Provide correct index");
         }
+        if(index == 0) {
+            if (size == 0) {
+                LinkedListNode<T> newOne = new LinkedListNode<>(data);
+                head = newOne;
+                newOne.setNext(newOne);
+                size++;
+            } else {
+                // since it is a circular linkedlist i do not have to traverse the whole linkedlist elements
+                // which will be O(n), but it is possible to add at O(1)
+                LinkedListNode<T> newNode = new LinkedListNode<>(data, head.getNext());
+                newNode.setNext(head.getNext());
+                head.setNext(newNode);
+                newNode.setData(head.getData());
+                head.setData(data);
+                size++;
 
-        if(index == size) {
-
-            T headData = head.getData();
+            }
+        } else if (index == size) {
+            // This is adding to the front of the linkedlist at a constant time
             LinkedListNode<T> newNode = new LinkedListNode<>(data, head.getNext());
+            newNode.setNext(head.getNext());
             head.setNext(newNode);
-            head.setData(newNode.getData());
-            newNode.setData(headData);
+            newNode.setData(head.getData());
+            head.setData(data);
             head = newNode;
             size++;
-
-        } else if (index == 0) {
-
-            LinkedListNode<T> newOne = new LinkedListNode<>(data);
-
-            newOne.setData(data);
-            head = newOne;
-            head.setNext(head);
-            size++;
         } else {
+            /*
+             | 1 | 2 | 3 | 4 |  add new element at index2
+             | 1 | 2| * | 3 | 4|
+
+            */
+
             LinkedListNode<T> traverse = head;
             for (int i = 0; i < index-1; i++) {
                 traverse = traverse.getNext();
             }
-            LinkedListNode<T> newNode = new LinkedListNode<>(data);
+            LinkedListNode<T> newNode = new LinkedListNode<>(data, traverse.getNext());
             newNode.setNext(traverse.getNext());
             traverse.setNext(newNode);
             size++;
