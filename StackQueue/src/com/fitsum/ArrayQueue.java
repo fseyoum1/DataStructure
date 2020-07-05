@@ -55,7 +55,7 @@ public class ArrayQueue<T> implements QueueInterface<T> {
     }
 
     public T peek() {
-        if (isEmpty()) {
+        if (isEmptyQueue()) {
             return null;
         } else {
             T firstElement = backingArray[front];
@@ -66,7 +66,7 @@ public class ArrayQueue<T> implements QueueInterface<T> {
     }
 
 
-    public boolean isEmpty() {
+    public boolean isEmptyQueue() {
         return size == 0;
     }
 

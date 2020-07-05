@@ -16,7 +16,7 @@ public class ArrayStack<T> implements StackInterface<T> {
     @Override
     public T pop() {
 
-        if (isEmpty()) {
+        if (isEmptyStack()) {
             throw new NoSuchElementException("Empty element");
         }
         T result = backingArray[size - 1];
@@ -47,7 +47,7 @@ public class ArrayStack<T> implements StackInterface<T> {
     @Override
     public T peek() {
 
-        if (isEmpty()) {
+        if (isEmptyStack()) {
             return null;
         }else {
             T element = backingArray[size-1];
@@ -55,8 +55,8 @@ public class ArrayStack<T> implements StackInterface<T> {
         }
     }
 
-    @Override
-    public boolean isEmpty() {
+
+    public boolean isEmptyStack() {
         return size == 0;
     }
 

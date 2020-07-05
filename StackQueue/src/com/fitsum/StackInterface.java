@@ -9,7 +9,7 @@ public interface StackInterface<T> {
 
     public T peek();
 
-    public boolean isEmpty();
+    //public boolean isEmpty();
 
     public int size();
 }
